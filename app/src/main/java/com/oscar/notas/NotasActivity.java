@@ -30,6 +30,27 @@ public class NotasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(NotasActivity.this,AgregarActivity.class);
+                startActivity(i);
+
+            }
+        });
+        mostrarNotas();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mostrarNotas();
+    }
+
+    private void mostrarNotas(){
         listNotas=(ListView)findViewById(R.id.listNotas);
         Dbcrud Db=new Dbcrud(this);
         try {
@@ -38,18 +59,6 @@ public class NotasActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-         Intent i=new Intent(NotasActivity.this,AgregarActivity.class);
-                startActivity(i);
-
-            }
-        });
     }
 
     @Override
@@ -59,6 +68,7 @@ public class NotasActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -67,8 +77,8 @@ public class NotasActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_mapa) {
+            startActivity(new Intent(this,MapsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
